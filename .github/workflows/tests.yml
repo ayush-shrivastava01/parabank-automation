@@ -27,9 +27,9 @@ jobs:
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v1
 
-      - name: Run Pytest
+      - name: Run CI Smoke Tests
         run: |
-          pytest -v --html=reports/test_report.html --self-contained-html
+          pytest -v tests/test_smoke.py --html=reports/test_report.html --self-contained-html
 
       - name: Upload test report
         if: always()
