@@ -9,28 +9,28 @@ screenshots, and HTML test reporting.
 
 ## Project Highlights
 
-- 26 automated test cases
-- Page Object Model (POM)
-- Selenium WebDriver with Python
-- Pytest framework
-- Explicit waits
-- Parameterized test cases
-- Automatic test-user creation
-- Reusable page actions and login helper
-- Failure screenshots
-- Execution logging
-- HTML test reports
+* 26 automated test cases
+* Page Object Model (POM)
+* Selenium WebDriver with Python
+* Pytest framework
+* Explicit waits
+* Parameterized test cases
+* Automatic test-user creation
+* Reusable page actions and login helper
+* Failure screenshots
+* Execution logging
+* HTML test reports
 
 ## Tech Stack
 
-| Tool / Technology | Usage |
-|---|---|
-| Python | Test automation language |
-| Selenium WebDriver | Browser automation |
-| Pytest | Test framework |
-| pytest-html | HTML test reports |
-| Chrome / ChromeDriver | Browser execution |
-| Git / GitHub | Version control and project hosting |
+|Tool / Technology|Usage|
+|-|-|
+|Python|Test automation language|
+|Selenium WebDriver|Browser automation|
+|Pytest|Test framework|
+|pytest-html|HTML test reports|
+|Chrome / ChromeDriver|Browser execution|
+|Git / GitHub|Version control and project hosting|
 
 ## Application Under Test
 
@@ -39,26 +39,26 @@ automation practice.
 
 The automated tests cover the following workflows:
 
-- User Registration
-- Login
-- Accounts Overview
-- Open New Account
-- Fund Transfer
-- Bill Payment
-- Account / Transaction Details
+* User Registration
+* Login
+* Accounts Overview
+* Open New Account
+* Fund Transfer
+* Bill Payment
+* Account / Transaction Details
 
 ## Test Coverage
 
-| Module | Tests |
-|---|---:|
-| Registration | 4 |
-| Login | 5 |
-| Accounts Overview | 3 |
-| Open Account | 3 |
-| Transfer Funds | 4 |
-| Bill Pay | 4 |
-| Account Details | 3 |
-| **Total** | **26** |
+|Module|Tests|
+|-|-:|
+|Registration|4|
+|Login|5|
+|Accounts Overview|3|
+|Open Account|3|
+|Transfer Funds|4|
+|Bill Pay|4|
+|Account Details|3|
+|**Total**|**26**|
 
 Some repetitive scenarios are implemented using Pytest parameterization,
 for example different account types and different transfer/payment amounts.
@@ -69,28 +69,28 @@ for example different account types and different transfer/payment amounts.
 parabank-automation/
 │
 ├── pages/
-│   ├── base_page.py
-│   ├── login_page.py
-│   ├── register_page.py
-│   ├── accounts_overview_page.py
-│   ├── open_account_page.py
-│   ├── transfer_funds_page.py
-│   ├── bill_pay_page.py
-│   └── account_details_page.py
+│   ├── base\_page.py
+│   ├── login\_page.py
+│   ├── register\_page.py
+│   ├── accounts\_overview\_page.py
+│   ├── open\_account\_page.py
+│   ├── transfer\_funds\_page.py
+│   ├── bill\_pay\_page.py
+│   └── account\_details\_page.py
 │
 ├── tests/
-│   ├── test_registration.py
-│   ├── test_login.py
-│   ├── test_accounts_overview.py
-│   ├── test_open_account.py
-│   ├── test_transfer_funds.py
-│   ├── test_bill_pay.py
-│   └── test_account_details.py
+│   ├── test\_registration.py
+│   ├── test\_login.py
+│   ├── test\_accounts\_overview.py
+│   ├── test\_open\_account.py
+│   ├── test\_transfer\_funds.py
+│   ├── test\_bill\_pay.py
+│   └── test\_account\_details.py
 │
 ├── utils/
 │   ├── logger.py
-│   ├── login_helper.py
-│   └── test_data.py
+│   ├── login\_helper.py
+│   └── test\_data.py
 │
 ├── screenshots/
 ├── reports/
@@ -107,12 +107,12 @@ locators and actions separate from test cases.
 
 ### Base Page
 
-`pages/base_page.py` contains reusable Selenium operations such as:
+`pages/base\_page.py` contains reusable Selenium operations such as:
 
-- Clicking elements
-- Entering text
-- Reading element text
-- Waiting for elements using explicit waits
+* Clicking elements
+* Entering text
+* Reading element text
+* Waiting for elements using explicit waits
 
 ### Page Objects
 
@@ -137,7 +137,7 @@ to maintain.
 Common test data is maintained in:
 
 ```text
-utils/test_data.py
+utils/test\_data.py
 ```
 
 The framework generates a unique username for the automated test account,
@@ -148,7 +148,7 @@ which avoids relying on one permanently stored demo account.
 Common login steps are kept in:
 
 ```text
-utils/login_helper.py
+utils/login\_helper.py
 ```
 
 This avoids repeating the same login setup in multiple test modules.
@@ -185,36 +185,37 @@ The project uses `pytest-html` to generate an HTML execution report.
 Run:
 
 ```bash
-pytest -v --html=reports/test_report.html --self-contained-html
+pytest -v --html=reports/test\_report.html --self-contained-html
 ```
 
 The report is generated at:
 
 ```text
-reports/test_report.html
+reports/test\_report.html
 ```
 
 It can be opened in a browser to review the test results.
 
 ## Setup
 
-### 1. Clone the repository
+### 1\. Clone the repository
 
 ```bash
-git clone <your-github-repository-url>
+git clone <https://github.com/ayush-shrivastava01/parabank-automation.git>
 cd parabank-automation
 ```
 
-### 2. Create and activate a virtual environment
+### 2\. Create and activate a virtual environment
 
 On Windows PowerShell:
 
 ```powershell
 python -m venv venv
-.env\Scripts\Activate.ps1
+.
+env\\Scripts\\Activate.ps1
 ```
 
-### 3. Install dependencies
+### 3\. Install dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -231,36 +232,36 @@ pytest -v
 ### Run a specific test file
 
 ```bash
-pytest -v tests/test_login.py
+pytest -v tests/test\_login.py
 ```
 
 ### Run a specific test
 
 ```bash
-pytest -v tests/test_login.py::test_valid_login
+pytest -v tests/test\_login.py::test\_valid\_login
 ```
 
 ### Generate an HTML report
 
 ```bash
-pytest -v --html=reports/test_report.html --self-contained-html
+pytest -v --html=reports/test\_report.html --self-contained-html
 ```
 
 ## Test Automation Features
 
 This project demonstrates the following QA automation concepts:
 
-- Selenium WebDriver
-- Page Object Model
-- Pytest fixtures
-- Explicit waits
-- Assertions
-- Parameterization
-- Reusable helper functions
-- Dynamic test data
-- Failure screenshots
-- Logging
-- HTML reporting
+* Selenium WebDriver
+* Page Object Model
+* Pytest fixtures
+* Explicit waits
+* Assertions
+* Parameterization
+* Reusable helper functions
+* Dynamic test data
+* Failure screenshots
+* Logging
+* HTML reporting
 
 ## Notes
 
@@ -277,3 +278,4 @@ testing.
 **Ayush Shrivastava**
 
 B.Tech Computer Science and Engineering
+
