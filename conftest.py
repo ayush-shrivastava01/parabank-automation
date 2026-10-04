@@ -2,10 +2,22 @@ import os
 
 import pytest
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 from pages.register_page import RegisterPage
-from pages.login_page import LoginPage
 from utils.test_data import USERNAME, PASSWORD
+
+
+def create_chrome_driver():
+    options = Options()
+
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--window-size=1920,1080")
+
+    driver = webdriver.Chrome(options=options)
+    return driver
 
 
 @pytest.fixture(scope="session")
@@ -18,8 +30,7 @@ def test_user():
 
 @pytest.fixture
 def driver(request):
-    driver = webdriver.Chrome()
-    driver.maximize_window()
+    driver = create_chrome_driver()
 
     yield driver
 
@@ -38,8 +49,7 @@ def driver(request):
 
 @pytest.fixture(scope="session", autouse=True)
 def create_test_user(test_user):
-    driver = webdriver.Chrome()
-    driver.maximize_window()
+    driver = create_chrome_driver()
 
     driver.get(
         "https://parabank.parasoft.com/parabank/register.htm"
