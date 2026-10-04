@@ -1,8 +1,3 @@
-Yes. You mean you want the **entire README as one single copy-paste block**, with all sections in the correct order.
-
-Replace your entire `README.md` with this:
-
-```markdown
 # ParaBank Test Automation
 
 Selenium + Python + Pytest automation framework for testing the ParaBank banking demo application.
