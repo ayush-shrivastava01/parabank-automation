@@ -1,96 +1,83 @@
+Yes. You mean you want the **entire README as one single copy-paste block**, with all sections in the correct order.
+
+Replace your entire `README.md` with this:
+
+```markdown
 # ParaBank Test Automation
 
-A Selenium + Python + Pytest automation framework built for testing the
-[ParaBank](https://parabank.parasoft.com/parabank/index.htm) online banking demo application.
+Selenium + Python + Pytest automation framework for testing the ParaBank banking demo application.
 
-The project focuses on practical QA automation concepts such as Page Object Model,
-explicit waits, Pytest parameterization, reusable test data, logging, failure
-screenshots, and HTML test reporting.
+## Project Overview
 
-## Project Highlights
+This project automates functional UI testing of the ParaBank application using Selenium WebDriver, Python, and Pytest.
 
-* 26 automated test cases
-* Page Object Model (POM)
-* Selenium WebDriver with Python
-* Pytest framework
-* Explicit waits
-* Parameterized test cases
-* Automatic test-user creation
-* Reusable page actions and login helper
-* Failure screenshots
-* Execution logging
-* HTML test reports
-
-## Tech Stack
-
-|Tool / Technology|Usage|
-|-|-|
-|Python|Test automation language|
-|Selenium WebDriver|Browser automation|
-|Pytest|Test framework|
-|pytest-html|HTML test reports|
-|Chrome / ChromeDriver|Browser execution|
-|Git / GitHub|Version control and project hosting|
+The framework follows the Page Object Model (POM) to keep page-specific locators and actions separate from test cases.
 
 ## Application Under Test
 
-**ParaBank** is a publicly available banking demo application used for
-automation practice.
+ParaBank Banking Demo
 
-The automated tests cover the following workflows:
+https://parabank.parasoft.com/parabank/index.htm
 
-* User Registration
-* Login
-* Accounts Overview
-* Open New Account
-* Fund Transfer
-* Bill Payment
-* Account / Transaction Details
+## Tech Stack
+
+| Technology | Usage |
+|---|---|
+| Python | Programming language |
+| Selenium WebDriver | Browser automation |
+| Pytest | Test execution and fixtures |
+| Page Object Model | Framework design |
+| HTML Reports | Test execution reporting |
+| Git/GitHub | Version control |
+| GitHub Actions | Continuous Integration |
 
 ## Test Coverage
 
-|Module|Tests|
-|-|-:|
-|Registration|4|
-|Login|5|
-|Accounts Overview|3|
-|Open Account|3|
-|Transfer Funds|4|
-|Bill Pay|4|
-|Account Details|3|
-|**Total**|**26**|
+The automation suite contains 26 test cases covering:
 
-Some repetitive scenarios are implemented using Pytest parameterization,
-for example different account types and different transfer/payment amounts.
+| Module | Coverage |
+|---|---|
+| Registration | Valid registration, validation, password mismatch, duplicate username |
+| Login | Valid login, invalid credentials, empty fields |
+| Accounts Overview | Page loading and account table validation |
+| Account Details | Account activity and transaction table |
+| Open Account | Savings and checking account creation |
+| Fund Transfer | Parameterized transfer scenarios |
+| Bill Payment | Parameterized bill payment scenarios |
 
 ## Framework Structure
 
 ```text
 parabank-automation/
 │
+├── .github/
+│   └── workflows/
+│       └── tests.yml
+│
 ├── pages/
-│   ├── base\_page.py
-│   ├── login\_page.py
-│   ├── register\_page.py
-│   ├── accounts\_overview\_page.py
-│   ├── open\_account\_page.py
-│   ├── transfer\_funds\_page.py
-│   ├── bill\_pay\_page.py
-│   └── account\_details\_page.py
+│   ├── base_page.py
+│   ├── login_page.py
+│   ├── register_page.py
+│   ├── accounts_overview_page.py
+│   ├── account_details_page.py
+│   ├── open_account_page.py
+│   ├── transfer_funds_page.py
+│   └── bill_pay_page.py
 │
 ├── tests/
-│   ├── test\_registration.py
-│   ├── test\_login.py
-│   ├── test\_accounts\_overview.py
-│   ├── test\_open\_account.py
-│   ├── test\_transfer\_funds.py
-│   ├── test\_bill\_pay.py
-│   └── test\_account\_details.py
+│   ├── test_login.py
+│   ├── test_registration.py
+│   ├── test_accounts_overview.py
+│   ├── test_account_details.py
+│   ├── test_open_account.py
+│   ├── test_transfer_funds.py
+│   ├── test_bill_pay.py
+│   └── test_smoke.py
 │
 ├── utils/
 │   ├── logger.py
-│   ├── login\_helper.py
-│   └── test\_data.py
+│   ├── login_helper.py
+│   └── test_data.py
 │
 ├── screenshots/
 ├── reports/
@@ -102,180 +89,200 @@ parabank-automation/
 
 ## Framework Design
 
-The project uses the **Page Object Model (POM)** to keep page-specific
-locators and actions separate from test cases.
+The framework uses the Page Object Model (POM).
 
-### Base Page
+- Page classes contain locators and reusable page actions.
+- Test files contain test scenarios and assertions.
+- `BasePage` provides common Selenium operations and explicit waits.
+- `conftest.py` manages Pytest fixtures, WebDriver setup, test-user creation, and failure screenshots.
+- Utility modules provide reusable test data, logging, and login functionality.
 
-`pages/base\_page.py` contains reusable Selenium operations such as:
+## Test Data
 
-* Clicking elements
-* Entering text
-* Reading element text
-* Waiting for elements using explicit waits
-
-### Page Objects
-
-Each major ParaBank workflow has its own page class.
-
-For example:
+Test data is maintained separately in:
 
 ```text
-LoginPage
-RegisterPage
-OpenAccountPage
-TransferFundsPage
-BillPayPage
-AccountDetailsPage
+utils/test_data.py
 ```
 
-This keeps the test code cleaner and makes locators and page actions easier
-to maintain.
+The project generates a unique username for automated test-user creation to reduce conflicts during registration.
 
-### Test Data
+## Reusable Login
 
-Common test data is maintained in:
+A reusable login helper is implemented in:
 
 ```text
-utils/test\_data.py
+utils/login_helper.py
 ```
 
-The framework generates a unique username for the automated test account,
-which avoids relying on one permanently stored demo account.
+This avoids repeating the same login steps across tests that require an authenticated session.
 
-### Reusable Login
+## Parameterized Testing
 
-Common login steps are kept in:
+Pytest parameterization is used for scenarios such as:
 
-```text
-utils/login\_helper.py
-```
+- Different account types
+- Different fund transfer amounts
+- Different bill payment amounts
 
-This avoids repeating the same login setup in multiple test modules.
+This allows the same test logic to be executed with multiple data sets.
+
+## Explicit Waits
+
+The framework uses Selenium `WebDriverWait` and expected conditions to wait for elements before interacting with them.
+
+This helps reduce failures caused by elements not being immediately available.
 
 ## Logging
 
-Basic execution logging is implemented using Python's `logging` module.
+Execution logging is implemented using Python's `logging` module.
 
-The log file is generated at:
+Logs are written to:
 
 ```text
 logs/automation.log
 ```
 
-The logs capture useful framework actions such as element clicks and
-text-entry operations without recording actual passwords.
+The logger records important automation actions such as element interactions and text entry.
 
 ## Failure Screenshots
 
-The framework automatically captures a screenshot when a test fails.
+When a test fails, the Pytest fixture automatically captures a screenshot.
 
-Screenshots are stored in:
+Screenshots are saved in:
 
 ```text
 screenshots/
 ```
 
-The screenshot filename is based on the failed test name.
+The screenshot filename corresponds to the failed test name.
 
 ## HTML Test Reports
 
-The project uses `pytest-html` to generate an HTML execution report.
+Pytest HTML reporting is used to generate execution reports.
 
-Run:
-
-```bash
-pytest -v --html=reports/test\_report.html --self-contained-html
-```
-
-The report is generated at:
-
-```text
-reports/test\_report.html
-```
-
-It can be opened in a browser to review the test results.
-
-## Setup
-
-### 1\. Clone the repository
-
-```bash
-git clone <https://github.com/ayush-shrivastava01/parabank-automation.git>
-cd parabank-automation
-```
-
-### 2\. Create and activate a virtual environment
-
-On Windows PowerShell:
+Example command:
 
 ```powershell
-python -m venv venv
-.
-env\\Scripts\\Activate.ps1
+pytest -v --html=reports/test_report.html --self-contained-html
 ```
 
-### 3\. Install dependencies
+Reports are generated in:
 
-```bash
-pip install -r requirements.txt
+```text
+reports/
 ```
+
+## Continuous Integration
+
+The project is integrated with GitHub Actions for automated CI execution.
+
+The CI workflow:
+
+1. Checks out the repository.
+2. Sets up Python.
+3. Installs project dependencies.
+4. Installs Chrome.
+5. Runs the smoke test suite using headless Chrome.
+6. Generates an HTML test report.
+7. Uploads the report as a GitHub Actions artifact.
+
+The smoke tests are executed automatically when changes are pushed to the `main` branch or when a pull request targets `main`.
+
+### CI Smoke Tests
+
+The CI smoke suite contains three stable checks covering:
+
+- ParaBank homepage availability
+- Login form availability
+- Registration page availability
+
+The complete 26-test automation suite is maintained separately as the project's broader regression coverage and can be executed locally when required.
 
 ## Running the Tests
 
-### Run the complete test suite
+### 1. Clone the repository
 
-```bash
+```powershell
+git clone https://github.com/ayush-shrivastava01/parabank-automation.git
+cd parabank-automation
+```
+
+### 2. Create a virtual environment
+
+```powershell
+python -m venv venv
+```
+
+### 3. Activate the virtual environment
+
+Windows PowerShell:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+### 4. Install dependencies
+
+```powershell
+pip install -r requirements.txt
+```
+
+### 5. Run all tests
+
+```powershell
 pytest -v
 ```
 
-### Run a specific test file
+### 6. Run a specific test module
 
-```bash
-pytest -v tests/test\_login.py
+Example:
+
+```powershell
+pytest -v tests/test_login.py
 ```
 
-### Run a specific test
+### 7. Run the smoke tests
 
-```bash
-pytest -v tests/test\_login.py::test\_valid\_login
+```powershell
+pytest -v tests/test_smoke.py
 ```
 
-### Generate an HTML report
+### 8. Generate an HTML report
 
-```bash
-pytest -v --html=reports/test\_report.html --self-contained-html
+```powershell
+pytest -v --html=reports/test_report.html --self-contained-html
 ```
 
 ## Test Automation Features
 
-This project demonstrates the following QA automation concepts:
-
-* Selenium WebDriver
-* Page Object Model
-* Pytest fixtures
-* Explicit waits
-* Assertions
-* Parameterization
-* Reusable helper functions
-* Dynamic test data
-* Failure screenshots
-* Logging
-* HTML reporting
+- Page Object Model
+- Explicit waits
+- Parameterized test cases
+- Reusable login utility
+- Test data management
+- Logging
+- Automatic failure screenshots
+- HTML test reports
+- GitHub Actions CI integration
+- Headless Chrome execution in CI
+- Automated smoke testing on push and pull requests
 
 ## Notes
 
-ParaBank is a public demo application rather than a production banking
-system. Because it is a shared demo environment, application behavior and
-test data can occasionally change between test runs.
+ParaBank is a publicly available demo banking application. Because it is an external demo environment, application state and behavior can occasionally vary between test executions.
 
-The project is intended to demonstrate the structure and implementation of
-a practical Selenium automation framework rather than production banking
-testing.
+The automation framework maintains the complete regression suite separately from the smaller CI smoke suite used for fast and reliable build validation.
 
 ## Author
 
 **Ayush Shrivastava**
 
-B.Tech Computer Science and Engineering
+B.Tech — Computer Science and Engineering
+NIMS University, Jaipur
 
+GitHub:
+https://github.com/ayush-shrivastava01
+
+LinkedIn:
+https://www.linkedin.com/in/ayush-shrivastava01/
